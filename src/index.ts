@@ -1,19 +1,21 @@
 import ControlManager from "./control.manager";
+import gameUtil from "./game/game.util";
+import initialize from "./game/initialize";
+import { State } from "./game/types";
 import renderUtil from "./render.util";
 import RenderloopManager from "./renderloop.manager";
 
 const controlManager = new ControlManager(document.body);
 
-let state = {
-  key: ""
-};
+let state: State = initialize();
 
-controlManager.onUp = () => state.key = "up";;
-controlManager.onRight = () => state.key = "right";
-controlManager.onDown = () => state.key = "down";
-controlManager.onLeft = () => state.key = "left";
+controlManager.onUp = () => state.direction = "up";
+controlManager.onRight = () => state.direction = "right";
+controlManager.onDown = () => state.direction = "down";
+controlManager.onLeft = () => state.direction = "left";
 
 const renderManager = new RenderloopManager(() => {
-  console.log("Loop")
-  renderUtil(document.getElementById("out"), state.key);
+  console.log("Loop");
+  gameUtil(state);
+  renderUtil(document.getElementById("out"), state);
 });

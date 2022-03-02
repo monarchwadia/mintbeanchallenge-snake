@@ -3,17 +3,22 @@ export default class RenderloopManager {
   private fps = 60;
 
   constructor(private func: Function) {
-    const step = () => {
-      this.func();
+    let previous;
+
+    const step = (time) => {
+      console.log("step");
+      if (previous === undefined) {
+        previous = time;
+      }
+
+      if (time - previous > 1000) { 
+        previous = time;
+        this.func();
+      }
+      
       window.requestAnimationFrame(step);
     }
-    
-    window.requestAnimationFrame(step);
-  }
 
-  private step() {
-    console.log("STEP", this);
-    this.func();
-    window.requestAnimationFrame(this.step);
+    window.requestAnimationFrame(step);
   }
 }

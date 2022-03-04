@@ -1,7 +1,7 @@
 import ControlManager from "./control.manager";
 import gameUtil from "./game/game.util";
 import initialize from "./game/initialize";
-import { State } from "./game/types";
+import { Direction, State } from "./game/types";
 import renderUtil from "./render.util";
 import RenderloopManager from "./renderloop.manager";
 
@@ -9,12 +9,26 @@ import RenderloopManager from "./renderloop.manager";
 let state: State = initialize();
 
 // controls
-const controlManager = new ControlManager(document.body);
-controlManager.onUp = () => state.direction = "up";
-controlManager.onRight = () => state.direction = "right";
-controlManager.onDown = () => state.direction = "down";
-controlManager.onLeft = () => state.direction = "left";
+const proposeChangeDirection = (state: State, newDirection: Direction): void => {
+  const disallowedControls: Record<Direction, Direction> = {
+    up: "down",
+    right: "left",
+    down: "up",
+    left: "right"
+  }
 
+  state.nextDirection = newDirection === disallowedControls[state.direction]
+    ? state.direction
+    : newDirection;
+}
+
+const controlManager = new ControlManager(document.body);
+controlManager.onUp = () => proposeChangeDirection(state, "up");
+controlManager.onRight = () => proposeChangeDirection(state, "right");
+controlManager.onDown = () => proposeChangeDirection(state, "down");
+controlManager.onLeft = () => proposeChangeDirection(state, "left");
+
+// 
 const renderLoopManager = new RenderloopManager(() => {
   console.log("Loop", state.direction);
   gameUtil(state);

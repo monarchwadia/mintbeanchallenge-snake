@@ -5,16 +5,17 @@ import { State } from "./game/types";
 import renderUtil from "./render.util";
 import RenderloopManager from "./renderloop.manager";
 
-const controlManager = new ControlManager(document.body);
-
+// initialize state
 let state: State = initialize();
 
+// controls
+const controlManager = new ControlManager(document.body);
 controlManager.onUp = () => state.direction = "up";
 controlManager.onRight = () => state.direction = "right";
 controlManager.onDown = () => state.direction = "down";
 controlManager.onLeft = () => state.direction = "left";
 
-const renderManager = new RenderloopManager(() => {
+const renderLoopManager = new RenderloopManager(() => {
   console.log("Loop", state.direction);
   gameUtil(state);
   renderUtil(document.getElementById("out"), state);

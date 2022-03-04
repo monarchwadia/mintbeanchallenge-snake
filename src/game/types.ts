@@ -5,6 +5,7 @@ export type State = {
   snake: Coords[];  
   boardDimensions: Coords;
   apple: Coords;
+  paused: boolean;
 }
 
 // ======================

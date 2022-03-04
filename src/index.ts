@@ -28,9 +28,9 @@ controlManager.onRight = () => proposeChangeDirection(state, "right");
 controlManager.onDown = () => proposeChangeDirection(state, "down");
 controlManager.onLeft = () => proposeChangeDirection(state, "left");
 
-// 
-const renderLoopManager = new RenderloopManager(() => {
-  console.log("Loop", state.direction);
-  gameUtil(state);
+new RenderloopManager(function(){
+  if (!state.paused) {
+    gameUtil(state);
+  }
   renderUtil(document.getElementById("out"), state);
 });

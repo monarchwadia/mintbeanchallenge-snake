@@ -42,8 +42,15 @@ export default function renderUtil(props: Props) {
   });
 
   // paused indicator, if paused
-  if (state.paused) {
-    blinkingOverlay(chars, timeNow, "PAUSED");
+  switch(state.mode) {
+    case "PAUSED":
+      blinkingOverlay(chars, timeNow, "PAUSED");
+      break;
+    case "NOTSTARTED":
+      blinkingOverlay(chars, timeNow, "SPACE TO START");
+      break;
+    case "GAMEOVER":
+      blinkingOverlay(chars, timeNow, "GAME OVER PRESS SPACE");
   }
 
   // add score

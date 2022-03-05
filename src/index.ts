@@ -27,13 +27,26 @@ controlManager.onUp = () => proposeChangeDirection(state, "up");
 controlManager.onRight = () => proposeChangeDirection(state, "right");
 controlManager.onDown = () => proposeChangeDirection(state, "down");
 controlManager.onLeft = () => proposeChangeDirection(state, "left");
-controlManager.onTogglePause = () => state.paused = !state.paused;
+controlManager.onTogglePause = () => {
+  switch(state.mode) {
+    case "NOTSTARTED":
+      state.mode = "RUNNING";
+      break;
+    case "PAUSED":
+      state.mode = "RUNNING";
+      break;
+    case "RUNNING":
+      state.mode = "PAUSED";
+      break;
+    case "GAMEOVER":
+      state = initialize();
+      break;
+  }
+};
 controlManager.onReset = () => state = initialize();
 
 new RenderloopManager(function(timeNow, timePrev){
-  if (!state.paused) {
-    gameUtil(state);
-  }
+  gameUtil(state);
   renderUtil({
     el: document.getElementById("out"),
     state,

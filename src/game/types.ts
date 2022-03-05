@@ -5,8 +5,8 @@ export type State = {
   snake: Coords[];  
   boardDimensions: Coords;
   apple: Coords;
-  paused: boolean;
   score: number;
+  mode: "NOTSTARTED" | "RUNNING" | "PAUSED" | "GAMEOVER"
 }
 
 // ======================

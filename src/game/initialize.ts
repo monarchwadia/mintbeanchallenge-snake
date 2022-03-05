@@ -8,7 +8,7 @@ export default function initialize(): State {
     direction: "left",
     snake: [{ x: 10, y: 5 }, { x: 11, y: 5 }, { x: 12, y: 5 }],
     nextDirection: undefined,
-    paused: false,
-    score: 0
+    score: 0,
+    mode: "NOTSTARTED"
   }
 }

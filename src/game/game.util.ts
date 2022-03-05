@@ -3,6 +3,9 @@ import { Coords, State } from "./types";
 
 // calculates next game state. returns false if collision occurred.
 export default function gameUtil(state: State): void {
+  if (state.mode !== "RUNNING") {
+    return;
+  }
   // move the snake
   state.direction = state.nextDirection || state.direction;
 
@@ -32,7 +35,7 @@ export default function gameUtil(state: State): void {
   }
 
   if(ranIntoWall || ranIntoSnake) {
-    state.paused = true;
+    state.mode = "GAMEOVER";
   }
 
   newSnake.unshift(nextHead)

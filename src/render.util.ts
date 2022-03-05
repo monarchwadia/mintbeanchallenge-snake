@@ -32,7 +32,13 @@ export default function renderUtil(el: HTMLElement, state: State) {
   chars.forEach(arr => {
     arr.unshift(WALL_SEGMENT);
     arr.push(WALL_SEGMENT);
-  })
+  });
+
+  // add score
+  chars.push(`<span style='color: white;'>SCORE: ${state.score}`.split(""));
+  chars.push(`<span style='color: gray;'>↑→↓← to change direction`.split(""));
+  chars.push(`<span style='color: gray;'>R to reset`.split(""));
+  chars.push(`<span style='color: gray;'>Space to pause`.split(""));
 
   const string = chars.map(rows => rows.join("")).join("<br/>");
   el.innerHTML = string;

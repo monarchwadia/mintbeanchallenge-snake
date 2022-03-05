@@ -3,6 +3,8 @@ export default class ControlManager {
   public onDown: Function;
   public onLeft: Function;
   public onRight: Function;
+  public onReset: Function;
+  public onTogglePause: Function;
 
   constructor(private el: HTMLElement) {
     el.addEventListener("keydown", (evt: KeyboardEvent) => {
@@ -29,6 +31,16 @@ export default class ControlManager {
       case "ArrowLeft":
         evt.preventDefault();
         this.onLeft?.();
+        break;
+      case "R":
+      case "r":
+        evt.preventDefault();
+        this.onReset?.();
+        break;
+      case " ":
+      case "Spacebar":
+        evt.preventDefault();
+        this.onTogglePause?.();
         break;
     }
   }

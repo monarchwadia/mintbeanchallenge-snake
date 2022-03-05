@@ -25,6 +25,7 @@ export default function gameUtil(state: State): void {
   const ranIntoSnake = state.snake.find(segment => isSame(nextHead, segment));
 
   if (appleWasEaten) {
+    state.score += 100;
     state.apple = random({x: 0, y: 0}, state.boardDimensions);
   } else {
     newSnake.pop();

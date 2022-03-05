@@ -4,8 +4,11 @@ import { State } from "./types";
 export default function initialize(): State {
   return {
     apple: { x: 5, y: 5 },
-    boardDimensions: { x: 25, y: 25 },
+    boardDimensions: { x: 25, y: 16 },
     direction: "left",
-    snake: [{ x: 10, y: 5 }, { x: 11, y: 5 }, { x: 12, y: 5 }]
+    snake: [{ x: 10, y: 5 }, { x: 11, y: 5 }, { x: 12, y: 5 }],
+    nextDirection: undefined,
+    paused: false,
+    score: 0
   }
 }

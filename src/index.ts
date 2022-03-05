@@ -27,6 +27,8 @@ controlManager.onUp = () => proposeChangeDirection(state, "up");
 controlManager.onRight = () => proposeChangeDirection(state, "right");
 controlManager.onDown = () => proposeChangeDirection(state, "down");
 controlManager.onLeft = () => proposeChangeDirection(state, "left");
+controlManager.onTogglePause = () => state.paused = !state.paused;
+controlManager.onReset = () => state = initialize();
 
 new RenderloopManager(function(){
   if (!state.paused) {

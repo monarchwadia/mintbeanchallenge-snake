@@ -1,9 +1,7 @@
 export default class RenderloopManager {
-  private previous;
-  private fps = 480;
-  private isPaused = false;
-
+  
   constructor(private func: Function) {
+    const fps = 480;
     let previous;
 
     const step = (time) => {
@@ -12,25 +10,14 @@ export default class RenderloopManager {
         previous = time;
       }
 
-      if (time - previous > (60000 / this.fps)) { 
+      if (time - previous > (60000 / fps)) { 
         previous = time;
-
-        if (!this.isPaused) {
-          this.func();
-        }
+        this.func();
       }
 
       window.requestAnimationFrame(step);
     }
 
     window.requestAnimationFrame(step);
-  }
-
-  pause() {
-    this.isPaused = true;
-  }
-
-  continue() {
-    this.isPaused = false;
   }
 }

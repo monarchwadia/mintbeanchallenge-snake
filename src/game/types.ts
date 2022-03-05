@@ -6,6 +6,7 @@ export type State = {
   boardDimensions: Coords;
   apple: Coords;
   paused: boolean;
+  score: number;
 }
 
 // ======================

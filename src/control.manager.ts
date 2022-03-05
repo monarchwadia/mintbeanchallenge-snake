@@ -6,22 +6,28 @@ export default class ControlManager {
 
   constructor(private el: HTMLElement) {
     el.addEventListener("keydown", (evt: KeyboardEvent) => {
-      this.handle(evt.key);
+      this.handle(evt);
     })
   }
 
-  private handle(key: string) {
+  private handle(evt: KeyboardEvent) {
+    const { key } = evt;
+
     switch(key) {
       case "ArrowUp":
+        evt.preventDefault();
         this.onUp?.();
         break;
       case "ArrowRight":
+        evt.preventDefault();
         this.onRight?.();
         break;
       case "ArrowDown":
+        evt.preventDefault();
         this.onDown?.();
         break;
       case "ArrowLeft":
+        evt.preventDefault();
         this.onLeft?.();
         break;
     }

@@ -5,7 +5,6 @@ export default class RenderloopManager {
     let timePrev;
 
     const step = (timeNow) => {
-      console.log("step");
       if (timePrev === undefined) {
         timePrev = timeNow;
       }

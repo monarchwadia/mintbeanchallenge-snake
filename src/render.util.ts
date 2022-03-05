@@ -42,15 +42,8 @@ export default function renderUtil(props: Props) {
   });
 
   // paused indicator, if paused
-  if (state.paused && ((timeNow % 2000) < 1000)) {
-    const yMid = Math.floor(chars.length / 2)
-    const xMid = Math.floor(chars[yMid].length / 2);
-    chars[yMid][xMid - 2] = "<span style='color: white'>P</span>";
-    chars[yMid][xMid - 1] = "<span style='color: white'>A</span>";
-    chars[yMid][xMid - 0] = "<span style='color: white'>U</span>";
-    chars[yMid][xMid + 1] = "<span style='color: white'>S</span>";
-    chars[yMid][xMid + 2] = "<span style='color: white'>E</span>";
-    chars[yMid][xMid + 3] = "<span style='color: white'>D</span>";
+  if (state.paused) {
+    blinkingOverlay(chars, timeNow, "PAUSED");
   }
 
   // add score
@@ -63,3 +56,17 @@ export default function renderUtil(props: Props) {
   el.innerHTML = string;
 }
 
+function blinkingOverlay(chars: string[][], timeNow: number, message: string) {
+  if ((timeNow % 2000) > 1000) {
+    return;
+  }
+
+  const yMid = Math.floor(chars.length / 2)
+  const xMid = Math.floor(chars[yMid].length / 2);
+
+  const offset = Math.floor(message.length / 2);
+
+  message.split("").forEach((c, i) => {
+    chars[yMid][xMid + i - offset] = `<span style='color: white'>${c}</span>`;  
+  })
+}

@@ -30,9 +30,14 @@ controlManager.onLeft = () => proposeChangeDirection(state, "left");
 controlManager.onTogglePause = () => state.paused = !state.paused;
 controlManager.onReset = () => state = initialize();
 
-new RenderloopManager(function(){
+new RenderloopManager(function(timeNow, timePrev){
   if (!state.paused) {
     gameUtil(state);
   }
-  renderUtil(document.getElementById("out"), state);
+  renderUtil({
+    el: document.getElementById("out"),
+    state,
+    timeNow,
+    timePrev
+  });
 });

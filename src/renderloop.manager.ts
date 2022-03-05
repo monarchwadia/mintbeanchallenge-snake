@@ -1,18 +1,18 @@
 export default class RenderloopManager {
   
-  constructor(private func: Function) {
+  constructor(private func: (time: number, previous: number) => void) {
     const fps = 480;
-    let previous;
+    let timePrev;
 
-    const step = (time) => {
+    const step = (timeNow) => {
       console.log("step");
-      if (previous === undefined) {
-        previous = time;
+      if (timePrev === undefined) {
+        timePrev = timeNow;
       }
 
-      if (time - previous > (60000 / fps)) { 
-        previous = time;
-        this.func();
+      if (timeNow - timePrev > (60000 / fps)) { 
+        timePrev = timeNow;
+        this.func(timeNow, timePrev);
       }
 
       window.requestAnimationFrame(step);

@@ -6,7 +6,14 @@ const SNAKE_SEGMENT = "<span style='color: green'>%</span>";
 const APPLE = "<span style='color: red'>@</span>";
 const WALL_SEGMENT = "<span style='color: darkred'>#</span>"
 
-export default function renderUtil(el: HTMLElement, state: State) {
+type Props = {
+  el: HTMLElement,
+  state: State,
+  timeNow: number,
+  timePrev: number
+}
+export default function renderUtil(props: Props) {
+  const { el, state, timeNow, timePrev } = props;
   const chars: string[][] = [];
   for (let y = 0; y < state.boardDimensions.y; y++) {
     chars[y] = [];
@@ -33,6 +40,18 @@ export default function renderUtil(el: HTMLElement, state: State) {
     arr.unshift(WALL_SEGMENT);
     arr.push(WALL_SEGMENT);
   });
+
+  // paused indicator, if paused
+  if (state.paused && ((timeNow % 2000) < 1000)) {
+    const yMid = Math.floor(chars.length / 2)
+    const xMid = Math.floor(chars[yMid].length / 2);
+    chars[yMid][xMid - 2] = "<span style='color: white'>P</span>";
+    chars[yMid][xMid - 1] = "<span style='color: white'>A</span>";
+    chars[yMid][xMid - 0] = "<span style='color: white'>U</span>";
+    chars[yMid][xMid + 1] = "<span style='color: white'>S</span>";
+    chars[yMid][xMid + 2] = "<span style='color: white'>E</span>";
+    chars[yMid][xMid + 3] = "<span style='color: white'>D</span>";
+  }
 
   // add score
   chars.push(`<span style='color: white;'>SCORE: ${state.score}`.split(""));

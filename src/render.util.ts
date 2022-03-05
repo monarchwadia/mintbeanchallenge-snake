@@ -1,7 +1,7 @@
 import { State } from "./game/types";
 import { packArray } from "./util";
 
-const EMPTY_SPACE = "<span style='color: lightgrey'>.</span>";
+const EMPTY_SPACE = "<span style='color: rgb(35,25,25)'>.</span>";
 const SNAKE_SEGMENT = "<span style='color: green'>%</span>";
 const APPLE = "<span style='color: red'>@</span>";
 const WALL_SEGMENT = "<span style='color: darkred'>#</span>"

@@ -1,8 +1,10 @@
 import { State } from "./game/types";
+import { packArray } from "./util";
 
 const EMPTY_SPACE = "<span style='color: lightgrey'>.</span>";
 const SNAKE_SEGMENT = "<span style='color: green'>%</span>";
 const APPLE = "<span style='color: red'>@</span>";
+const WALL_SEGMENT = "<span style='color: darkred'>#</span>"
 
 export default function renderUtil(el: HTMLElement, state: State) {
   const chars: string[][] = [];
@@ -24,6 +26,15 @@ export default function renderUtil(el: HTMLElement, state: State) {
     }
   }
 
+  // add wall
+  chars.unshift(packArray(WALL_SEGMENT, state.boardDimensions.x))
+  chars.push(packArray(WALL_SEGMENT, state.boardDimensions.x))
+  chars.forEach(arr => {
+    arr.unshift(WALL_SEGMENT);
+    arr.push(WALL_SEGMENT);
+  })
+
   const string = chars.map(rows => rows.join("")).join("<br/>");
   el.innerHTML = string;
 }
+

@@ -1,19 +1,23 @@
 import { State } from "./game/types";
 
+const EMPTY_SPACE = "<span style='color: lightgrey'>.</span>";
+const SNAKE_SEGMENT = "<span style='color: green'>%</span>";
+const APPLE = "<span style='color: red'>@</span>";
+
 export default function renderUtil(el: HTMLElement, state: State) {
   const chars: string[][] = [];
   for (let y = 0; y < state.boardDimensions.y; y++) {
     chars[y] = [];
 
     for (let x = 0; x < state.boardDimensions.x; x++) {
-      let char = "."; // space by default
+      let char = EMPTY_SPACE; // space by default
       
       if (state.snake.find((segment) => segment.x === x && segment.y === y)) {
-        char = "#";
+        char = SNAKE_SEGMENT;
       }
 
       if (state.apple.x === x && state.apple.y === y) {
-        char = "@";
+        char = APPLE;
       }
 
       chars[y][x] = char;
